@@ -33,9 +33,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (mysqli_query($mysqli, $insert_query)) {
                 $_SESSION['no_rm'] = $no_rm; // Store no_rm in session
                 echo "<script>
-                alert('Pendaftaran Berhasil. Nomor RM Anda adalah: $no_rm'); 
-                document.location='index.php?page=daftarpoli';
+                alert('Pendaftaran Berhasil. Nomor RM Anda adalah: $no_rm');
                 </script>";
+                header("Location: index.php?page=rawatJalan&no_rm=$no_rm");
+                exit;
             } else {
                 $error = "Pendaftaran gagal";
             }
@@ -73,11 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="form-group">
                             <label for="no_ktp">No_KTP</label>
-                            <input type="no_ktp" name="no_ktp" class="form-control" required placeholder="Masukkan password">
+                            <input type="no_ktp" name="no_ktp" class="form-control" required placeholder="Masukkan No. KTP">
                         </div>
                         <div class="form-group">
                             <label for="confirm_ktp">Confirm KTP</label>
-                            <input type="password" name="confirm_ktp" class="form-control" required placeholder="Masukkan password konfirmasi">
+                            <input type="password" name="confirm_ktp" class="form-control" required placeholder="Masukkan KTP konfirmasi">
                         </div>
                         <div class="form-group">
                             <label for="no_hp">No.HP</label>

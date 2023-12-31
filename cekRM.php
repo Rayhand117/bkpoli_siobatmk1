@@ -69,7 +69,7 @@
                             </div>
                         </form>
                         <div class="text-center">
-                            <p class="mt-3">Belum terdaftar? <a href="index.php?page=registerUser" style="text-decoration: none;">Menjadi pasien baru</a></p>
+                            <p class="mt-3">Belum terdaftar? <a href="index.php?page=registerPasien" style="text-decoration: none;">Menjadi pasien baru</a></p>
                             <!-- <p class="mt-3">Login sebagai dokter? <a href="index.php?page=loginDokter">Ya, Saya Dokter</a></p> -->
                         </div>
                     </div>
