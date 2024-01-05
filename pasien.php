@@ -31,7 +31,7 @@
             $row = mysqli_fetch_assoc($result);
             $totalPasien = $row['total'];
             
-            $no_rm = date('Y') . date('m') . '-' . ($totalPasien + 1);
+            $no_rm = date('Y-m-d') . '-' . ($totalPasien + 1);
             $sql = "INSERT INTO pasien (nama, alamat, no_ktp, no_hp, no_rm) VALUES ('$nama', '$alamat', '$hashed_ktp', '$no_hp', '$no_rm')";
             $tambah = mysqli_query($mysqli, $sql);
     
