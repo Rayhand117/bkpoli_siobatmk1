@@ -91,45 +91,53 @@
                         <input type="text" name="catatan" class="form-control" required value="<?php echo $catatan ?>">
                     </div>
                     <div class="dropdown mb-3 w-25">
-                        <label for="id_obat">Obat <span class="text-danger">*</span></label>
-                        <select class="form-select" name="id_obat[]" aria-label="id_obat">
-                            <option value="" selected>Pilih Obat...</option>
-                            <?php
-                                $result = mysqli_query($mysqli, "SELECT * FROM obat");
-                                
-                                while ($data = mysqli_fetch_assoc($result)) {
-                                    echo "<option value='" . $data['id'] . "'>" . $data['nama_obat'] . "</option>";
-                                }
-                            ?>
-                            
-                        </select>
-                        <button id="addObat" type="button" class="btn btn-primary">Add Obat</button>
-                    </div>
+    <label for="id_obat">Obat <span class="text-danger">*</span></label>
+    <select class="form-select" name="id_obat[]" aria-label="id_obat">
+        <option value="" selected>Pilih Obat...</option>
+        <?php
+            $result = mysqli_query($mysqli, "SELECT * FROM obat");
+            
+            while ($data = mysqli_fetch_assoc($result)) {
+                echo "<option value='" . $data['id'] . "'>" . $data['nama_obat'] . "</option>";
+            }
+        ?>
+        
+    </select>
+    <button id="addObat" type="button" class="btn btn-primary">Add Obat</button>
+</div>
 
-                    <div id="additionalObat"></div>
+<div id="additionalObat"></div>
 
-                    <script>
-                        document.getElementById('addObat').addEventListener('click', function() {
-                            var obatDropdown = `
-                                <div class="dropdown mb-3 w-25">
-                                    <label for="id_obat">Obat <span class="text-danger">*</span></label>
-                                    <select class="form-select" name="id_obat[]" aria-label="id_obat">
-                                        <option value="" selected>Pilih Obat...</option>
-                                        <?php
-                                            $result = mysqli_query($mysqli, "SELECT * FROM obat");
-                                            
-                                            while ($data = mysqli_fetch_assoc($result)) {
-                                                echo "<option value='" . $data['id'] . "'>" . $data['nama_obat'] . "</option>";
-                                            }
-                                        ?>
-                                        
-                                    </select>
-                                </div>
-                            `;
+<script>
+    document.getElementById('addObat').addEventListener('click', function() {
+        var obatDropdown = `
+            <div class="dropdown mb-3 w-25">
+                <label for="id_obat">Obat <span class="text-danger">*</span></label>
+                <select class="form-select" name="id_obat[]" aria-label="id_obat">
+                    <option value="" selected>Pilih Obat...</option>
+                    <?php
+                        $result = mysqli_query($mysqli, "SELECT * FROM obat");
+                        
+                        while ($data = mysqli_fetch_assoc($result)) {
+                            echo "<option value='" . $data['id'] . "'>" . $data['nama_obat'] . "</option>";
+                        }
+                    ?>
+                    
+                </select>
+                <button type="button" class="btn btn-danger deleteObat">Delete Obat</button>
+            </div>
+        `;
 
-                            document.getElementById('additionalObat').innerHTML += obatDropdown;
-                        });
-                    </script>
+        document.getElementById('additionalObat').innerHTML += obatDropdown;
+    });
+
+    // Event delegation to handle click events on dynamically created delete buttons
+    document.getElementById('additionalObat').addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('deleteObat')) {
+            e.target.parentNode.remove();
+        }
+    });
+</script>
                     <div class="d-flex justify-content-end mt-2">
                         <button type="submit" name="simpanData" class="btn btn-primary">Simpan</button>
                     </div>
