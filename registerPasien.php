@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </form>
                     <div class="text-center">
-                        <p class="mt-3">Sudah Terdaftar? <a href="index.php?page=loginPasien">Login</a></p>
+                        <p class="mt-3">Sudah Terdaftar? <a href="index.php?page=loginPasien">Cek Nomor RM</a></p>
                     </div>
                 </div>
             </div>

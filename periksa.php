@@ -32,7 +32,7 @@
 
         echo "
             <script> 
-                alert('Berhasil menambah data.');
+                alert('Pasien Pasti Segera Sembuh Dengan Resepku Yang Sangat Ampuh');
                 window.location.href='berandaDokter.php?page=periksa';
             </script>
         ";
