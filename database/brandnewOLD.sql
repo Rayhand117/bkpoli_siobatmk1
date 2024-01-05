@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 31 Des 2023 pada 14.58
+-- Waktu pembuatan: 05 Jan 2024 pada 16.27
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.6
 
@@ -36,14 +36,6 @@ CREATE TABLE `daftar_poli` (
   `tanggal` timestamp NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data untuk tabel `daftar_poli`
---
-
-INSERT INTO `daftar_poli` (`id`, `id_pasien`, `id_jadwal`, `keluhan`, `no_antrian`, `tanggal`) VALUES
-(1, 13, 2, 'halohalo', 1, '2023-12-31 13:22:50'),
-(2, 14, 2, 'ya begitulah', 2, '2023-12-31 13:38:39');
-
 -- --------------------------------------------------------
 
 --
@@ -55,14 +47,6 @@ CREATE TABLE `detail_periksa` (
   `id_periksa` int UNSIGNED NOT NULL,
   `id_obat` int UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `detail_periksa`
---
-
-INSERT INTO `detail_periksa` (`id`, `id_periksa`, `id_obat`) VALUES
-(1, 61, 1),
-(2, 62, 3);
 
 -- --------------------------------------------------------
 
@@ -110,7 +94,8 @@ CREATE TABLE `jadwal_periksa` (
 INSERT INTO `jadwal_periksa` (`id`, `id_dokter`, `hari`, `jam_mulai`, `jam_selesai`) VALUES
 (1, 1, 'Senin', '13:00:00', '15:00:00'),
 (2, 2, 'Selasa', '10:00:00', '12:00:00'),
-(3, 3, 'Kamis', '22:16:00', '12:19:00');
+(3, 3, 'Kamis', '20:16:00', '23:19:00'),
+(4, 2, 'Kamis', '10:50:00', '00:50:00');
 
 -- --------------------------------------------------------
 
@@ -154,16 +139,9 @@ CREATE TABLE `pasien` (
 --
 
 INSERT INTO `pasien` (`id`, `nama`, `alamat`, `no_ktp`, `no_hp`, `no_rm`) VALUES
-(13, 'DieHard', 'Perumahan Kandri', '$2y$10$LbfOP5M2AA2bMPSiJJ1k4uvFrLTUFZ2KVFxwYJozfv1nlMlsayvWa', '087737941843', '2023-12-24-1'),
-(14, 'Yosh', 'fsdfdsa', '$2y$10$vFiarqgeeFRwNrmhAqdnY.788WZhEpHLkMkYYpfLkAvOPRPCTpz1a', '09321783217', '2023-12-24-2'),
-(15, 'Jackfds', 'oewqfoidsoafdsaofjsaod', '$2y$10$uwo9y0pRD44s2XyvQL/HAeH9f1rzJ5XTarWwA4OLHB6rhDib3nBnO', '081342131231', '2023-12-24-3'),
-(16, 'Hola', 'los amigos', '$2y$10$72fx6GsoaMw57HwefNdCjuB.8AFuK7lvmNe..2oHhlt7Fm3OStxqW', '086321321345', '2023-12-24-4'),
-(17, 'Johnatan', 'jalan jalan jalan', '$2y$10$kIdVv/C5r8G9oR1L4RU1VuVzrVX.1CT2bpzX6OSyy0jIV0IoeSCIO', '086328283232', '2023-12-24-5'),
-(19, 'takeDown', 'Jl.takeDown', '$2y$10$qlGwAyKmSVRXwealLHu3bOruUfGBDvI0Fi627dRss/ipbOg8INm5.', '0873216732176', '2023-12-26-6'),
-(21, 'toekijo', 'jalan.toekijo 123', '$2y$10$i.cLhFu7hBz0dOj5CB3KIu61AhUq8WHNZVrnnE3Qjt1PYkkX3ip/S', '08321321312', '2023-12-31-8'),
-(22, 'Cliff', 'Perumahan Kandri Pesona Asri Blok G1/15 RT06/RW04, Kelurahan Kandri', '$2y$10$BAhhgcUwq4J0kvh/NERMz.Hvx4AVyiXHCe6WXqqF8ijYJZmmhXSbO', '087737941843', '2023-12-31-9'),
-(23, 'CliffUnger', 'bobohoooooooooooooo', '$2y$10$TouXmEjErGaM1mQ50ENwfOEhUvdIXiD23/K/ZGjBJGDLiprEJ9wLq', '0832178932', '2023-12-31-10'),
-(24, 'generate', 'alamatsample', '$2y$10$tLdRnI4fOd2y4tOrJKbLz.dSy8m8/G8TJdcLq/bnNdvF8FUAdLhSG', '0863727172321', '202312-10');
+(1, 'Blahaj', 'jl. boyke734', '$2y$10$FKl1GSqTQZBstnCNEQYzieX5rmGfa/Z4LbIZm1vzR7wPjIuTwrumy', '083479826732', '2024-01-05-1'),
+(2, 'Blohoj', 'Lautan Blahaj', '$2y$10$U1H6LgzwtY.flL22.l0uPOLLYdsOjB3WR6RAjjLIqfOwluqtB4Ns6', '08326718321', '2024-01-05-2'),
+(3, 'Blehej', 'jl. boyke736', '$2y$10$yAKMShvXk5gubp/LENyEKuJDNb6zy78i0shnyetN9U/qHBmO23suC', '083479826732', '2024-01-05-3');
 
 -- --------------------------------------------------------
 
@@ -178,14 +156,6 @@ CREATE TABLE `periksa` (
   `catatan` text NOT NULL,
   `biaya_periksa` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `periksa`
---
-
-INSERT INTO `periksa` (`id`, `id_daftar_poli`, `tgl_periksa`, `catatan`, `biaya_periksa`) VALUES
-(61, 1, '2023-12-31 14:23:01', 'okok', 175000),
-(62, 2, '2023-12-31 14:38:55', 'hola los amigos', 183000);
 
 -- --------------------------------------------------------
 
@@ -302,13 +272,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT untuk tabel `daftar_poli`
 --
 ALTER TABLE `daftar_poli`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT untuk tabel `detail_periksa`
 --
 ALTER TABLE `detail_periksa`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT untuk tabel `dokter`
@@ -320,7 +290,7 @@ ALTER TABLE `dokter`
 -- AUTO_INCREMENT untuk tabel `jadwal_periksa`
 --
 ALTER TABLE `jadwal_periksa`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `obat`
@@ -332,13 +302,13 @@ ALTER TABLE `obat`
 -- AUTO_INCREMENT untuk tabel `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `periksa`
 --
 ALTER TABLE `periksa`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT untuk tabel `poli`
