@@ -124,18 +124,10 @@
                                         ?>
                                         
                                     </select>
-                                    <button type="button" class="btn btn-danger deleteObat">Delete Obat</button>
                                 </div>
                             `;
 
                             document.getElementById('additionalObat').innerHTML += obatDropdown;
-                        });
-
-                        // Event delegation to handle click events on dynamically created delete buttons
-                        document.getElementById('additionalObat').addEventListener('click', function(e) {
-                            if (e.target && e.target.classList.contains('deleteObat')) {
-                                e.target.parentNode.remove();
-                            }
                         });
                     </script>
                     <div class="d-flex justify-content-end mt-2">
@@ -145,33 +137,19 @@
             </div>
 
             <div class="table-responsive mt-3 px-0">
-            <?php
-                $id_dokter = $_SESSION['id'];
-                $result_jadwal = mysqli_query($mysqli, "
-                    SELECT DISTINCT id_jadwal
-                    FROM daftar_poli
-                    JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id 
-                    WHERE jadwal_periksa.id_dokter = '$id_dokter'
-                ");
-
-                while ($jadwal = mysqli_fetch_array($result_jadwal)) :
-                    $id_jadwal = $jadwal['id_jadwal'];
-            ?>
-
                 <table class="table text-center">
                     <thead class="table-primary">
                         <tr>
                             <th valign="middle">No</th>
                             <th valign="middle">Nama Pasien</th>
                             <th valign="middle">No. Antrian</th>
-                            <th valign="middle">Hari</th>
-                            <th valign="middle">Jam Periksa</th>
                             <th valign="middle">Keluhan</th>
                             <th valign="middle" style="width: 0.5%;" colspan="2">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
+                            $id_dokter = $_SESSION['id'];
                             $result = mysqli_query($mysqli, "
                                 SELECT daftar_poli.*, pasien.nama AS nama, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai
                                 FROM daftar_poli
@@ -183,28 +161,26 @@
                                 JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id 
                                 JOIN pasien ON daftar_poli.id_pasien = pasien.id
                                 LEFT JOIN periksa ON daftar_poli.id = periksa.id_daftar_poli
-                                WHERE jadwal_periksa.id_dokter = '$id_dokter' AND periksa.id_daftar_poli IS NULL AND daftar_poli.id_jadwal = '$id_jadwal'
+                                WHERE jadwal_periksa.id_dokter = '$id_dokter' AND periksa.id_daftar_poli IS NULL
                             ");
                             $no = 1;
                             while ($data = mysqli_fetch_array($result)) :
-                        ?>
-                            <tr>
-                                <td><?php echo $no++ ?></td>
-                                <td><?php echo $data['nama'] ?></td>
-                                <td><?php echo $data['no_antrian'] ?></td>
-                                <td><?php echo $data['hari'] ?></td>
-                                <td><?php echo $data['jam_mulai'] . ' - ' . $data['jam_selesai'] ?></td>
-                                <td><?php echo $data['keluhan'] ?></td>
-                                <td>
-                                    <a class="btn btn-sm btn-warning text-white" href="berandaDokter.php?page=periksa&id=<?php echo $data['id'] ?>">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            ?>
+                                <tr>
+                                    <td><?php echo $no++ ?></td>
+                                    <td><?php echo $data['nama'] ?></td>
+                                    <td><?php echo $data['no_antrian'] ?></td>
+                                    <td><?php echo $data['keluhan'] ?></td>
+                                    <td>
+                                        <a class="btn btn-sm btn-warning text-white" href="berandaDokter.php?page=periksa&id=<?php echo $data['id'] ?>">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+
                         <?php endwhile; ?>
                     </tbody>
                 </table>
-            <?php endwhile; ?>
             </div>
         </div>
     </div>

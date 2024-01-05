@@ -196,7 +196,7 @@
                                 <td><?php echo $data['jam_mulai'] . ' - ' . $data['jam_selesai'] ?></td>
                                 <td><?php echo $data['keluhan'] ?></td>
                                 <td>
-                                    <a class="btn btn-sm btn-warning text-white" href="berandaDokter.php?page=periksa&id=<?php echo $data['id'] ?>">
+                                    <a class="btn btn-sm btn-warning text-white" href="index.php?page=periksa&id=<?php echo $data['id'] ?>">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
                                 </td>
