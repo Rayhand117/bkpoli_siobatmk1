@@ -46,15 +46,32 @@
 
     if (isset($_GET['aksi'])) {
         if ($_GET['aksi'] == 'hapus') {
-            $hapus = mysqli_query($mysqli, "DELETE FROM pasien WHERE id = '" . $_GET['id'] . "'");
-
-            if ($hapus) {
-                echo "
-                    <script> 
-                        alert('Berhasil menghapus data.');
-                        document.location='index.php?page=pasien';
-                    </script>
-                ";
+            $id = $_GET['id'];
+    
+            // Delete the dependent records from the detail_periksa, periksa, daftar_poli and detail_periksa tables
+            $deleteDetailPeriksa = mysqli_query($mysqli, "DELETE FROM detail_periksa WHERE id_periksa IN (SELECT id FROM periksa WHERE id_daftar_poli IN (SELECT id FROM daftar_poli WHERE id_pasien = '$id'))");
+            $deletePeriksa = mysqli_query($mysqli, "DELETE FROM periksa WHERE id_daftar_poli IN (SELECT id FROM daftar_poli WHERE id_pasien = '$id')");
+            $deleteDaftarPoli = mysqli_query($mysqli, "DELETE FROM daftar_poli WHERE id_pasien = '$id'");
+    
+            // If the dependent records are successfully deleted, delete the record from the pasien table
+            if ($deleteDetailPeriksa && $deletePeriksa && $deleteDaftarPoli) {
+                $hapus = mysqli_query($mysqli, "DELETE FROM pasien WHERE id = '$id'");
+    
+                if ($hapus) {
+                    echo "
+                        <script> 
+                            alert('Berhasil menghapus data.');
+                            document.location='index.php?page=pasien';
+                        </script>
+                    ";
+                } else {
+                    echo "
+                        <script> 
+                            alert('Gagal menghapus data: " . mysqli_error($mysqli) . "');
+                            document.location='index.php?page=pasien';
+                        </script>
+                    ";
+                }
             } else {
                 echo "
                     <script> 
