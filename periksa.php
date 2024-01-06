@@ -142,6 +142,27 @@
                         <button type="submit" name="simpanData" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
+                <script>
+                    function checkForm() {
+                        var no_antrian = document.querySelector('input[name="no_antrian"]').value;
+                        var id_pasien = document.querySelector('input[name="id_pasien"]').value;
+                        var id_dokter = document.querySelector('input[name="id_dokter"]').value;
+                        var catatan = document.querySelector('input[name="catatan"]').value;
+                        var id_obat = document.querySelector('select[name="id_obat[]"]').value;
+
+                        if(no_antrian == "" || id_pasien == "" || id_dokter == "" || catatan == "" || id_obat == "") {
+                            document.querySelector('button[name="simpanData"]').disabled = true;
+                        } else {
+                            document.querySelector('button[name="simpanData"]').disabled = false;
+                        }
+                    }
+
+                    // Call checkForm function every time form inputs change
+                    document.querySelector('form').addEventListener('change', checkForm);
+
+                    // Call checkForm function on page load to ensure button is in correct state
+                    window.onload = checkForm;
+                </script>
             </div>
 
             <div class="table-responsive mt-3 px-0">
