@@ -13,11 +13,12 @@
         $hari = $_POST['hari'];
         $jam_mulai = $_POST['jam_mulai'];
         $jam_selesai = $_POST['jam_selesai'];
+        $statues = $_POST['statues'];
 
         if (isset($_POST['id'])) {
             $id = $_POST['id'];
-            $stmt = $mysqli->prepare("UPDATE jadwal_periksa SET id_dokter=?, hari=?, jam_mulai=?, jam_selesai=? WHERE id=?");
-            $stmt->bind_param("isssi", $id_dokter, $hari, $jam_mulai, $jam_selesai, $id);
+            $stmt = $mysqli->prepare("UPDATE jadwal_periksa SET id_dokter=?, hari=?, jam_mulai=?, jam_selesai=?, statues=? WHERE id=?");
+            $stmt->bind_param("isssi", $id_dokter, $hari, $jam_mulai, $jam_selesai, $statues,  $id);
 
             if ($stmt->execute()) {
                 echo "
@@ -32,8 +33,8 @@
 
             $stmt->close();
         } else {
-            $stmt = $mysqli->prepare("INSERT INTO jadwal_periksa (id_dokter, hari, jam_mulai, jam_selesai) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("isss", $id_dokter, $hari, $jam_mulai, $jam_selesai);
+            $stmt = $mysqli->prepare("INSERT INTO jadwal_periksa (id_dokter, hari, jam_mulai, jam_selesai, statues) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("isssi", $id_dokter, $hari, $jam_mulai, $jam_selesai, $statues);
 
             if ($stmt->execute()) {
                 echo "
@@ -92,6 +93,7 @@
                     $hari = '';
                     $jam_mulai = '';
                     $jam_selesai = '';
+                    $statues = '';
                     if (isset($_GET['id'])) {
                         $get = mysqli_query($mysqli, "SELECT * FROM jadwal_periksa 
                                 WHERE id='" . $_GET['id'] . "'");
@@ -100,6 +102,7 @@
                             $hari = $row['hari'];
                             $jam_mulai = $row['jam_mulai'];
                             $jam_selesai = $row['jam_selesai'];
+                            $statues = $row['statues'];
                         }
                     ?>
                         <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
@@ -143,6 +146,14 @@
                         <label for="jam_selesai">Jam Selesai <span class="text-danger">*</span></label>
                         <input type="time" name="jam_selesai" class="form-control" required value="<?php echo $jam_selesai ?>">
                     </div>
+                    <div class="dropdown mb-3 w-25">
+                        <label for="statues">Status <span class="text-danger">*</span></label>
+                        <select class="form-select" name="statues" aria-label="statues">
+                            <option value="" selected>Pilih Status...</option>
+                            <option value="1">1</option>
+                            <option value="0">0</option>
+                        </select>
+                    </div>
                     <div class="d-flex justify-content-end mt-2">
                         <button type="submit" name="simpanData" class="btn btn-primary">Simpan</button>
                     </div>
@@ -159,6 +170,7 @@
                             <th valign="middle">Hari</th>
                             <th valign="middle" style="width: 25%;" colspan="2">Waktu</th>
                             <!-- <th valign="middle">Jam Selesai</th> -->
+                            <th valign="middle">Status</th>
                             <th valign="middle" style="width: 0.5%;" colspan="2">Aksi</th>
                         </tr>
                     </thead>
@@ -166,7 +178,7 @@
                         <?php
                             $id_dokter = $_SESSION['id'];
 
-                            $result = mysqli_query($mysqli, "SELECT dokter.nama, jadwal_periksa.id, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai 
+                            $result = mysqli_query($mysqli, "SELECT dokter.nama, jadwal_periksa.id, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, jadwal_periksa.statues 
                             FROM dokter 
                             JOIN jadwal_periksa ON dokter.id = jadwal_periksa.id_dokter 
                             WHERE dokter.id = $id_dokter");
@@ -179,6 +191,7 @@
                                     <td><?php echo $data['hari'] ?></td>
                                     <td><?php echo $data['jam_mulai'] ?> WIB</td>
                                     <td><?php echo $data['jam_selesai'] ?> WIB</td>
+                                    <td><?php echo $data['statues'] ?></td>
                                     <td>
                                         <a class="btn btn-sm btn-warning text-white" href="berandaDokter.php?page=aturJadwalDokter&id=<?php echo $data['id'] ?>">
                                             <i class="fa-solid fa-pen-to-square"></i>
