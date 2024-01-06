@@ -41,6 +41,9 @@ include_once("koneksi.php");
                         <li class="nav-item">
                             <a class="nav-link" href="berandaDokter.php?page=riwayat">Riwayat</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="berandaDokter.php?page=aturJadwalDokter">Set Jadwal</a>
+                        </li>
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="index.php?page=obat">Obat</a>
                         </li> -->
