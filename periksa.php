@@ -1,43 +1,49 @@
 <?php
-    if (!isset($_SESSION)) {
-        session_start();
+if (isset($_POST['simpanData'])) {
+    $id_daftar_poli = $_GET['id']; // Get the id from the URL
+    $id_obats = $_POST['id_obat']; // Get the id_obat values from the form
+    $base_biaya_periksa = 150000;
+    $biaya_periksa = 0;
+    $tgl_periksa = date('Y-m-d H:i:s'); // Get the current datetime
+    $catatan = $_POST['catatan']; // Get the catatan value from the form
+
+    // Process the first "obat" separately
+    $first_obat = array_shift($id_obats);
+    $result = mysqli_query($mysqli, "SELECT harga FROM obat WHERE id = '$first_obat'");
+    $data = mysqli_fetch_assoc($result);
+    $harga_obat = $data['harga'];
+    $biaya_periksa += $base_biaya_periksa + $harga_obat;
+
+    // Process the rest of the "obat"
+    foreach ($id_obats as $id_obat) {
+        $result = mysqli_query($mysqli, "SELECT harga FROM obat WHERE id = '$id_obat'");
+        $data = mysqli_fetch_assoc($result);
+        $harga_obat = $data['harga'];
+        $biaya_periksa += $harga_obat;
     }
 
-    if (isset($_POST['simpanData'])) {
-        $id_daftar_poli = $_GET['id']; // Get the id from the URL
-        $id_obats = $_POST['id_obat']; // Get the id_obat values from the form
-        $base_biaya_periksa = 150000;
-        $tgl_periksa = date('Y-m-d H:i:s'); // Get the current datetime
-        $catatan = $_POST['catatan']; // Get the catatan value from the form
+    // Insert into periksa table
+    $sql = "INSERT INTO periksa (id_daftar_poli, tgl_periksa, catatan, biaya_periksa) VALUES ('$id_daftar_poli', '$tgl_periksa', '$catatan', '$biaya_periksa')";
+    $tambah = mysqli_query($mysqli, $sql);
 
-        foreach ($id_obats as $id_obat) {
-            // Query the obat table to get the harga for the selected id_obat
-            $result = mysqli_query($mysqli, "SELECT harga FROM obat WHERE id = '$id_obat'");
-            $data = mysqli_fetch_assoc($result);
-            $harga_obat = $data['harga'];
+    // Get the id_periksa of the record just inserted
+    $id_periksa = mysqli_insert_id($mysqli);
 
-            // Calculate the total biaya_periksa
-            $biaya_periksa = $base_biaya_periksa + $harga_obat;
-            
-            $sql = "INSERT INTO periksa (id_daftar_poli, tgl_periksa, catatan, biaya_periksa) VALUES ('$id_daftar_poli', '$tgl_periksa', '$catatan', '$biaya_periksa')";
-            $tambah = mysqli_query($mysqli, $sql);
-
-            // Get the id_periksa of the record just inserted
-            $id_periksa = mysqli_insert_id($mysqli);
-
-            // Insert into detail_periksa table
-            $sql = "INSERT INTO detail_periksa (id_periksa, id_obat) VALUES ('$id_periksa', '$id_obat')";
-            $tambah = mysqli_query($mysqli, $sql);
-        }
-
-        echo "
-            <script> 
-                alert('Pasien Pasti Segera Sembuh Dengan Resepku Yang Sangat Ampuh');
-                window.location.href='berandaDokter.php?page=periksa';
-            </script>
-        ";
-        exit();
+    // Insert into detail_periksa table for each obat
+    array_unshift($id_obats, $first_obat); // Add the first obat back to the array
+    foreach ($id_obats as $id_obat) {
+        $sql = "INSERT INTO detail_periksa (id_periksa, id_obat) VALUES ('$id_periksa', '$id_obat')";
+        $tambah = mysqli_query($mysqli, $sql);
     }
+
+    echo "
+        <script> 
+            alert('Pasien Pasti Segera Sembuh Dengan Resepku Yang Sangat Ampuh');
+            window.location.href='berandaDokter.php?page=periksa';
+        </script>
+    ";
+    exit();
+}
 ?>
 
 <main id="periksapasien-page">
