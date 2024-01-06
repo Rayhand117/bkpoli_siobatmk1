@@ -25,21 +25,22 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php
-                        $id_dokter = $_SESSION['id'];
-                        $result = mysqli_query($mysqli, "
-                        SELECT daftar_poli.*, pasien.nama AS nama, jadwal_periksa.hari, periksa.tgl_periksa, periksa.catatan, periksa.biaya_periksa, obat.nama_obat AS nama_obat
-                        FROM daftar_poli
-                        JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id 
-                        JOIN pasien ON daftar_poli.id_pasien = pasien.id
-                        LEFT JOIN periksa ON daftar_poli.id = periksa.id_daftar_poli
-                        LEFT JOIN detail_periksa ON periksa.id = detail_periksa.id_periksa
-                        LEFT JOIN obat ON detail_periksa.id_obat = obat.id
-                        WHERE jadwal_periksa.id_dokter = '$id_dokter' AND periksa.id_daftar_poli IS NOT NULL
-                        ");
-                        $no = 1;
-                        while ($data = mysqli_fetch_array($result)) :
-                    ?>
+                        <?php
+                            $id_dokter = $_SESSION['id'];
+                            $result = mysqli_query($mysqli, "
+                                SELECT daftar_poli.*, pasien.nama AS nama, jadwal_periksa.hari, periksa.tgl_periksa, periksa.catatan, periksa.biaya_periksa, GROUP_CONCAT(obat.nama_obat SEPARATOR ', ') as nama_obat
+                                FROM daftar_poli
+                                JOIN jadwal_periksa ON daftar_poli.id_jadwal = jadwal_periksa.id 
+                                JOIN pasien ON daftar_poli.id_pasien = pasien.id
+                                LEFT JOIN periksa ON daftar_poli.id = periksa.id_daftar_poli
+                                LEFT JOIN detail_periksa ON periksa.id = detail_periksa.id_periksa
+                                LEFT JOIN obat ON detail_periksa.id_obat = obat.id
+                                WHERE jadwal_periksa.id_dokter = '$id_dokter' AND periksa.id_daftar_poli IS NOT NULL
+                                GROUP BY daftar_poli.id, pasien.nama, jadwal_periksa.hari, periksa.tgl_periksa, periksa.catatan, periksa.biaya_periksa
+                            ");
+                            $no = 1;
+                            while ($data = mysqli_fetch_array($result)) :
+                        ?>
                                 <tr>
                                     <td><?php echo $no++ ?></td>
                                     <td><?php echo $data['nama'] ?></td>
