@@ -215,16 +215,15 @@ $dokter_schedules = $result->fetch_all(MYSQLI_ASSOC);
                 currentDay = dayMapping[currentDay];
 
                 data.forEach(function(jadwal) {
-                let listItem = document.createElement('li');
-                listItem.className = "list-group-item d-flex justify-content-between align-items-center";
-                listItem.style.cursor = "pointer"
-                let isDisabled = (jadwal.hari.toLowerCase() !== currentDay) ? 'disabled' : '';
-                let status = (jadwal.hari.toLowerCase() !== currentDay) ? '<p class="bg-danger text-white border rounded p-1 mb-0">Sibuk</p>' : '<p class="bg-success text-white border rounded p-1 mb-0">Aktif</p>';
-                listItem.innerHTML = '<div class="d-flex align-items-center"><input style="cursor: pointer" class="form-check-input me-1" type="radio" name="id_jadwal" value="' + jadwal.id + '" id="id_jadwal" '+ isDisabled +'><label class="form-check-label" for="id_jadwal" style="cursor: pointer">' + jadwal.hari + ', ' + jadwal.jam_mulai + ' - ' + jadwal.jam_selesai + '</label></div>' + status;
-                listGroup.appendChild(listItem);
-            });
+                    let listItem = document.createElement('li');
+                    listItem.className = "list-group-item";
+                    listItem.style.cursor = "pointer"
+                    let isDisabled = (jadwal.hari.toLowerCase() !== currentDay) ? 'disabled' : '';
+                    listItem.innerHTML = '<input style="cursor: pointer" class="form-check-input me-1" type="radio" name="id_jadwal" value="' + jadwal.id + '" id="id_jadwal" '+ isDisabled +'><label class="form-check-label" for="id_jadwal" style="cursor: pointer">' + jadwal.hari + ', ' + jadwal.jam_mulai + ' - ' + jadwal.jam_selesai + '</label>';
+                    listGroup.appendChild(listItem);
+                });
 
-            document.querySelectorAll("input[type=radio]").forEach(function(radio) {
+                document.querySelectorAll("input[type=radio]").forEach(function(radio) {
                 radio.addEventListener("change", function() {
                     document.querySelector("button[type=submit]").removeAttribute('disabled');
                 });
