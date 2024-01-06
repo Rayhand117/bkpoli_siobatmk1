@@ -159,6 +159,27 @@
                     </div>
     
                 </form>
+                <script>
+                    function checkForm() {
+                        var id_dokter = document.querySelector('select[name="id_dokter"]').value;
+                        var hari = document.querySelector('select[name="hari"]').value;
+                        var jam_mulai = document.querySelector('input[name="jam_mulai"]').value;
+                        var jam_selesai = document.querySelector('input[name="jam_selesai"]').value;
+                        var statues = document.querySelector('select[name="statues"]').value;
+
+                        if(id_dokter == "" || hari == "" || jam_mulai == "" || jam_selesai == "" || statues == "") {
+                            document.querySelector('button[name="simpanData"]').disabled = true;
+                        } else {
+                            document.querySelector('button[name="simpanData"]').disabled = false;
+                        }
+                    }
+
+                    // Call checkForm function every time form inputs change
+                    document.querySelector('form').addEventListener('change', checkForm);
+
+                    // Call checkForm function on page load to ensure button is in correct state
+                    window.onload = checkForm;
+                </script>
             </div>
 
             <div class="table-responsive mt-3 px-0">
