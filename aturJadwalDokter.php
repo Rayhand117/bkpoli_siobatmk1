@@ -18,7 +18,7 @@
         if (isset($_POST['id'])) {
             $id = $_POST['id'];
             $stmt = $mysqli->prepare("UPDATE jadwal_periksa SET id_dokter=?, hari=?, jam_mulai=?, jam_selesai=?, statues=? WHERE id=?");
-            $stmt->bind_param("isssi", $id_dokter, $hari, $jam_mulai, $jam_selesai, $statues,  $id);
+            $stmt->bind_param("issssi", $id_dokter, $hari, $jam_mulai, $jam_selesai, $statues,  $id);
 
             if ($stmt->execute()) {
                 echo "
@@ -191,7 +191,13 @@
                                     <td><?php echo $data['hari'] ?></td>
                                     <td><?php echo $data['jam_mulai'] ?> WIB</td>
                                     <td><?php echo $data['jam_selesai'] ?> WIB</td>
-                                    <td><?php echo $data['statues'] ?></td>
+                                    <td>
+                                      <?php 
+                                        echo ($data['statues'] == 1) 
+                                          ? '<p class="bg-success text-white border rounded p-1 mb-0">Active</p>' 
+                                          : '<p class="bg-danger text-white border rounded p-1 mb-0">Inactive</p>'; 
+                                      ?>
+                                    </td>
                                     <td>
                                         <a class="btn btn-sm btn-warning text-white" href="berandaDokter.php?page=aturJadwalDokter&id=<?php echo $data['id'] ?>">
                                             <i class="fa-solid fa-pen-to-square"></i>
