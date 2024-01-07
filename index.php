@@ -24,7 +24,6 @@ include_once("koneksi.php");
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                
                 <?php
                 if (isset($_SESSION['username'])) {
                     // Jika pengguna sudah login, tampilkan tombol "Logout"
@@ -33,9 +32,6 @@ include_once("koneksi.php");
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=dokter">Dokter</a>
-                        </li> -->
                         <li class="nav-item dropdown">
                             <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 Dokter
@@ -71,9 +67,6 @@ include_once("koneksi.php");
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?page=cekRM">Rawat Jalan</a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=poli">Cek RM</a>
-                        </li> -->
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">

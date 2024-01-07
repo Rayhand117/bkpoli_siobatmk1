@@ -63,11 +63,6 @@ if (isset($_GET['aksi'])) {
     <div class="container" style="margin-top: 5.5rem;">
         <div class="row">
             <h2 class="ps-0">Halaman Obat</h2>
-            <!-- <div class="d-flex justify-content-end pe-0">
-                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahDokter">
-                    <i class="fa-regular fa-plus"></i> Tambah
-                </button>
-            </div> -->
             <div class="container">
                 <form action="" method="POST" onsubmit="return(validate());">
                     <?php
@@ -143,8 +138,6 @@ if (isset($_GET['aksi'])) {
                         <?php endwhile; ?>
                     </tbody>
                 </table>
-                        
-
             </div>
         </div>
     </div>

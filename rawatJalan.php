@@ -78,7 +78,6 @@ $dokter_schedules = $result->fetch_all(MYSQLI_ASSOC);
                                     </div>
                                 ';
                             }
-                            
                             ?>
                             <div class="row">
                                 <div class="col-6">
@@ -125,10 +124,6 @@ $dokter_schedules = $result->fetch_all(MYSQLI_ASSOC);
                                 <button disabled type="submit" class="btn btn-outline-primary px-4 btn-block">Daftar</button>
                             </div>
                         </form>
-                        <!-- <div class="text-center">
-                            <p class="mt-3">Belum punya akun? <a href="index.php?page=registerUser">Register</a></p>
-                            <p class="mt-3">Login sebagai dokter? <a href="index.php?page=loginDokter">Ya, Saya Dokter</a></p>
-                        </div> -->
                     </div>
                 </div>
             </div>

@@ -123,7 +123,6 @@ if (isset($_GET['aksi'])) {
                                         </a>
                                     </td>
                                 </tr>
-
                         <?php endwhile; ?>
                     </tbody>
                 </table>

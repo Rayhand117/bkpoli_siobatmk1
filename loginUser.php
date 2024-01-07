@@ -68,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <p class="mt-3">Login sebagai dokter? <a style="text-decoration: none;" href="index.php?page=loginDokter">Ya, Saya Dokter</a></p>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>

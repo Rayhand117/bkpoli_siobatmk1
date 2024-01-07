@@ -107,11 +107,6 @@
     <div class="container" style="margin-top: 5.5rem;">
         <div class="row">
             <h2 class="ps-0">Jadwal Dokter</h2>
-            <!-- <div class="d-flex justify-content-end pe-0">
-                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#tambahDokter">
-                    <i class="fa-regular fa-plus"></i> Tambah
-                </button>
-            </div> -->
             <div class="container">
                 <form action="" method="POST" onsubmit="return(validate());">
                     <?php
@@ -136,19 +131,19 @@
                     }
                     ?>
                     <div class="dropdown mb-3 w-25">
-    <label for="id_dokter">Dokter <span class="text-danger">*</span></label>
-    <select class="form-select" name="id_dokter" aria-label="id_dokter">
-        <option value="" selected>Pilih Dokter...</option>
-        <?php
-            $result = mysqli_query($mysqli, "SELECT * FROM dokter");
-            
-            while ($data = mysqli_fetch_assoc($result)) {
-                $selected = ($data['id'] == $id_dokter) ? 'selected' : '';
-                echo "<option value='" . $data['id'] . "' $selected>" . $data['nama'] . "</option>";
-            }
-        ?>
-    </select>
-</div>
+                        <label for="id_dokter">Dokter <span class="text-danger">*</span></label>
+                        <select class="form-select" name="id_dokter" aria-label="id_dokter">
+                            <option value="" selected>Pilih Dokter...</option>
+                            <?php
+                                $result = mysqli_query($mysqli, "SELECT * FROM dokter");
+                                
+                                while ($data = mysqli_fetch_assoc($result)) {
+                                    $selected = ($data['id'] == $id_dokter) ? 'selected' : '';
+                                    echo "<option value='" . $data['id'] . "' $selected>" . $data['nama'] . "</option>";
+                                }
+                            ?>
+                        </select>
+                    </div>
                     <div class="dropdown mb-3 w-25">
                         <label for="hari">Hari <span class="text-danger">*</span></label>
                         <select class="form-select" name="hari" aria-label="hari">
@@ -171,22 +166,21 @@
                         <input type="time" name="jam_selesai" class="form-control" required value="<?php echo $jam_selesai ?>">
                     </div>
                     <div class="dropdown mb-3 w-25">
-    <label for="statues">Status <span class="text-danger">*</span></label>
-    <select class="form-select" name="statues" aria-label="statues">
-        <option value="" selected>Pilih Status...</option>
-        <?php
-            $statuses = ['1', '0'];
-            foreach ($statuses as $status) {
-                $selected = ($status == $statues) ? 'selected' : '';
-                echo "<option value='$status' $selected>$status</option>";
-            }
-        ?>
-    </select>
-</div>
+                        <label for="statues">Status <span class="text-danger">*</span></label>
+                        <select class="form-select" name="statues" aria-label="statues">
+                            <option value="" selected>Pilih Status...</option>
+                            <?php
+                                $statuses = ['1', '0'];
+                                foreach ($statuses as $status) {
+                                    $selected = ($status == $statues) ? 'selected' : '';
+                                    echo "<option value='$status' $selected>$status</option>";
+                                }
+                            ?>
+                        </select>
+                    </div>
                     <div class="d-flex justify-content-end mt-2">
                         <button type="submit" name="simpanData" class="btn btn-primary">Simpan</button>
                     </div>
-    
                 </form>
             </div>
 
@@ -237,8 +231,6 @@
                         <?php endwhile; ?>
                     </tbody>
                 </table>
-                        
-
             </div>
         </div>
     </div>

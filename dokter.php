@@ -151,7 +151,6 @@
                     <div class="d-flex justify-content-end mt-2">
                         <button type="submit" name="simpanData" class="btn btn-primary">Simpan</button>
                     </div>
-    
                 </form>
             </div>
 
@@ -192,7 +191,6 @@
                                         </a>
                                     </td>
                                 </tr>
-
                         <?php endwhile; ?>
                     </tbody>
                 </table>

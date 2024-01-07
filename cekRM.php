@@ -17,20 +17,6 @@
         } else {
             $error = "No. Rekam Medis tidak ditemukan";
         }
-    
-        // if ($no_ktp === $confirm_ktp) {
-        //     $query = "SELECT * FROM pasien WHERE no_rm = '$no_rm'";
-        //     $result = $mysqli->query($query);
-    
-        //     if (!$result) {
-        //         die("Query error: " . $mysqli->error);
-        //     }
-    
-        //     header("Location: index.php?page=rawatJalan");
-        
-        // } else {
-        //     $error = "No. Rekam Medis tidak ditemukan";
-        // }
     }
 ?>
 
@@ -70,7 +56,6 @@
                         </form>
                         <div class="text-center">
                             <p class="mt-3">Belum terdaftar? <a href="index.php?page=registerPasien" style="text-decoration: none;">Menjadi pasien baru</a></p>
-                            <!-- <p class="mt-3">Login sebagai dokter? <a href="index.php?page=loginDokter">Ya, Saya Dokter</a></p> -->
                         </div>
                     </div>
                 </div>

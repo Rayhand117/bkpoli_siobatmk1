@@ -23,10 +23,6 @@ include_once("koneksi.php");
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-                <!-- <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form> -->
                 <?php
                 if (isset($_SESSION['nip'])) {
                     // Jika pengguna sudah login, tampilkan tombol "Logout"
@@ -44,9 +40,6 @@ include_once("koneksi.php");
                         <li class="nav-item">
                             <a class="nav-link" href="berandaDokter.php?page=aturJadwalDokter">Set Jadwal</a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=obat">Obat</a>
-                        </li> -->
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
@@ -58,9 +51,6 @@ include_once("koneksi.php");
                     // Jika pengguna belum login, tampilkan tombol "Login" dan "Register"
                 ?>
                     <ul class="navbar-nav ms-auto">
-                        <!-- <li class="nav-item">
-                            <a class="nav-link" href="index.php?page=registerUser">Register</a>
-                        </li> -->
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?page=loginDokter">Login</a>
                         </li>

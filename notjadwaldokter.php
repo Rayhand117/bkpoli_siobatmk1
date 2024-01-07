@@ -206,8 +206,6 @@
                         <?php endwhile; ?>
                     </tbody>
                 </table>
-                        
-
             </div>
         </div>
     </div>
