@@ -123,12 +123,13 @@
                         <label for="hari">Hari <span class="text-danger">*</span></label>
                         <select class="form-select" name="hari" aria-label="hari">
                             <option value="" selected>Pilih Hari...</option>
-                            <option value="Senin">Senin</option>
-                            <option value="Selasa">Selasa</option>
-                            <option value="Rabu">Rabu</option>
-                            <option value="Kamis">Kamis</option>
-                            <option value="Jum'at">Jum'at</option>
-                            <option value="Sabtu">Sabtu</option>
+                            <?php
+                                $days = ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+                                foreach ($days as $day) {
+                                    $selected = ($day == $hari) ? 'selected' : '';
+                                    echo "<option value='$day' $selected>$day</option>";
+                                }
+                            ?>
                         </select>
                     </div>
                     <div class="mb-3 w-25">
@@ -143,8 +144,13 @@
                         <label for="statues">Status <span class="text-danger">*</span></label>
                         <select class="form-select" name="statues" aria-label="statues">
                             <option value="" selected>Pilih Status...</option>
-                            <option value="1">1</option>
-                            <option value="0">0</option>
+                            <?php
+                                $statuses = ['1', '0'];
+                                foreach ($statuses as $status) {
+                                    $selected = ($status == $statues) ? 'selected' : '';
+                                    echo "<option value='$status' $selected>$status</option>";
+                                }
+                            ?>
                         </select>
                     </div>
                     <div class="d-flex justify-content-end mt-2">
