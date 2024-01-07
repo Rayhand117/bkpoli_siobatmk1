@@ -47,21 +47,34 @@
 
     if (isset($_GET['aksi'])) {
         if ($_GET['aksi'] == 'hapus') {
-            $stmt = $mysqli->prepare("DELETE FROM dokter WHERE id = ?");
-            $stmt->bind_param("i", $_GET['id']);
-            $stmt->execute();
-
-            if ($stmt->affected_rows > 0) {
-                echo "
-                    <script> 
-                        alert('Berhasil menghapus data.');
-                        document.location='index.php?page=dokter';
-                    </script>
-                ";
+            $id = $_GET['id'];
+    
+            // Check if there are any jadwal_periksa records that reference the dokter
+            $result = mysqli_query($mysqli, "SELECT * FROM jadwal_periksa WHERE id_dokter = '$id'");
+            if (mysqli_num_rows($result) == 0) {
+                // If there are no jadwal_periksa records that reference the dokter, delete the dokter
+                $stmt = $mysqli->prepare("DELETE FROM dokter WHERE id = ?");
+                $stmt->bind_param("i", $id);
+    
+                if ($stmt->execute()) {
+                    echo "
+                        <script> 
+                            alert('Berhasil menghapus data.');
+                            document.location='index.php?page=dokter';
+                        </script>
+                    ";
+                } else {
+                    echo "
+                        <script> 
+                            alert('Gagal menghapus data: " . mysqli_error($mysqli) . "');
+                            document.location='index.php?page=dokter';
+                        </script>
+                    ";
+                }
             } else {
                 echo "
                     <script> 
-                        alert('Gagal menghapus data: " . mysqli_error($mysqli) . "');
+                        alert('Gagal menghapus data: Dokter masih memiliki jadwal periksa.');
                         document.location='index.php?page=dokter';
                     </script>
                 ";
@@ -149,6 +162,7 @@
                             <th valign="middle">No</th>
                             <th valign="middle">NIP</th>
                             <th valign="middle">Nama</th>
+                            <th valign="middle">Poli</th>
                             <th valign="middle">Alamat</th>
                             <th valign="middle">No Hp</th>
                             <th valign="middle" style="width: 0.5%;" colspan="2">Aksi</th>
@@ -156,7 +170,7 @@
                     </thead>
                     <tbody>
                         <?php
-                            $result = mysqli_query($mysqli, "SELECT * FROM dokter");
+                            $result = mysqli_query($mysqli, "SELECT dokter.*, poli.nama_poli FROM dokter JOIN poli ON dokter.id_poli = poli.id");
                             $no = 1;
                             while ($data = mysqli_fetch_array($result)) :
                             ?>
@@ -164,6 +178,7 @@
                                     <td><?php echo $no++ ?></td>
                                     <td><?php echo $data['nip'] ?></td>
                                     <td><?php echo $data['nama'] ?></td>
+                                    <td><?php echo $data['nama_poli'] ?></td>
                                     <td><?php echo $data['alamat'] ?></td>
                                     <td><?php echo $data['no_hp'] ?></td>
                                     <td>
