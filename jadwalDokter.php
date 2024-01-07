@@ -174,14 +174,14 @@
                         <input type="time" name="jam_selesai" class="form-control" required value="<?php echo $jam_selesai ?>">
                     </div>
                     <div class="dropdown mb-3 w-25">
-                        <label for="statues">Status <span class="text-danger">*</span></label>
+                    <label for="statues">Status <span class="text-danger">*</span></label>
                         <select class="form-select" name="statues" aria-label="statues">
                             <option value="" selected>Pilih Status...</option>
                             <?php
-                                $statuses = ['1', '0'];
-                                foreach ($statuses as $status) {
+                                $statuses = ['1' => 'Active', '0' => 'Inactive'];
+                                foreach ($statuses as $status => $statusName) {
                                     $selected = ($status == $statues) ? 'selected' : '';
-                                    echo "<option value='$status' $selected>$status</option>";
+                                    echo "<option value='$status' $selected>$statusName</option>";
                                 }
                             ?>
                         </select>

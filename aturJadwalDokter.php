@@ -145,10 +145,10 @@
                         <select class="form-select" name="statues" aria-label="statues">
                             <option value="" selected>Pilih Status...</option>
                             <?php
-                                $statuses = ['1', '0'];
-                                foreach ($statuses as $status) {
+                                $statuses = ['1' => 'Active', '0' => 'Inactive'];
+                                foreach ($statuses as $status => $statusName) {
                                     $selected = ($status == $statues) ? 'selected' : '';
-                                    echo "<option value='$status' $selected>$status</option>";
+                                    echo "<option value='$status' $selected>$statusName</option>";
                                 }
                             ?>
                         </select>
