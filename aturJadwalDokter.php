@@ -1,25 +1,24 @@
 <?php 
-    if (!isset($_SESSION)) {
-        session_start();
-    }
-    if (!isset($_SESSION['nip'])) {
-        // Jika pengguna sudah login, tampilkan tombol "Logout"
-        header("Location: berandaDokter.php?page=loginDokter");
-        exit;
-    }
-
     if (isset($_POST['simpanData'])) {
         $id_dokter = $_SESSION['id'];
         $hari = $_POST['hari'];
         $jam_mulai = $_POST['jam_mulai'];
         $jam_selesai = $_POST['jam_selesai'];
         $statues = $_POST['statues'];
-
+    
+        // If the new status is 'Active', set all other statuses to 'Inactive'
+        if ($statues == 1) {
+            $stmt = $mysqli->prepare("UPDATE jadwal_periksa SET statues=0 WHERE id_dokter=?");
+            $stmt->bind_param("i", $id_dokter);
+            $stmt->execute();
+            $stmt->close();
+        }
+    
         if (isset($_POST['id'])) {
             $id = $_POST['id'];
             $stmt = $mysqli->prepare("UPDATE jadwal_periksa SET id_dokter=?, hari=?, jam_mulai=?, jam_selesai=?, statues=? WHERE id=?");
             $stmt->bind_param("issssi", $id_dokter, $hari, $jam_mulai, $jam_selesai, $statues,  $id);
-
+    
             if ($stmt->execute()) {
                 echo "
                     <script> 
@@ -30,12 +29,12 @@
             } else {
                 // Handle error
             }
-
+    
             $stmt->close();
         } else {
             $stmt = $mysqli->prepare("INSERT INTO jadwal_periksa (id_dokter, hari, jam_mulai, jam_selesai, statues) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("isssi", $id_dokter, $hari, $jam_mulai, $jam_selesai, $statues);
-
+    
             if ($stmt->execute()) {
                 echo "
                     <script> 
@@ -46,7 +45,7 @@
             } else {
                 // Handle error
             }
-
+    
             $stmt->close();
         }
     }
