@@ -1,4 +1,11 @@
 <?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+if (!isset($_SESSION['nip'])) {
+    header("Location: index.php?page=loginDokter");
+    exit;
+}
 if (isset($_POST['simpanData'])) {
     $id_daftar_poli = $_GET['id']; // Get the id from the URL
     $id_obats = $_POST['id_obat']; // Get the id_obat values from the form

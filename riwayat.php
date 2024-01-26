@@ -1,7 +1,11 @@
 <?php
-    if (!isset($_SESSION)) {
-        session_start();
-    }
+if (!isset($_SESSION)) {
+    session_start();
+}
+if (!isset($_SESSION['nip'])) {
+    header("Location: index.php?page=loginDokter");
+    exit;
+}
 ?>
 
 <main id="periksapasien-page">

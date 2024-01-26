@@ -1,4 +1,12 @@
 <?php 
+if (!isset($_SESSION)) {
+    session_start();
+}
+if (!isset($_SESSION['nip'])) {
+    header("Location: index.php?page=loginDokter");
+    exit;
+}
+
     if (isset($_POST['simpanData'])) {
         $id_dokter = $_SESSION['id'];
         $hari = $_POST['hari'];

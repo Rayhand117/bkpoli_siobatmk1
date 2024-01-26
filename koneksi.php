@@ -1,7 +1,7 @@
 <?php
 
 $databaseHost = 'localhost';
-$databaseName = 'siobat';
+$databaseName = 'nnn';
 $databaseUsername = 'root';
 $databasePassword = '';
 

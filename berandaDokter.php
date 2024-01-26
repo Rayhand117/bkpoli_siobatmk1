@@ -1,7 +1,10 @@
 <?php
-
 if (!isset($_SESSION)) {
   session_start();
+}
+if (!isset($_SESSION['nip'])) {
+    header("Location: index.php?page=loginDokter");
+    exit;
 }
 
 include_once("koneksi.php");
