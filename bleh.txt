@@ -1,0 +1,64 @@
+JS:
+class Mobil {
+  constructor(warna, tahunProduksi) {
+    this.warna = warna;
+    this.tahunProduksi = tahunProduksi;
+  }
+}
+
+class Mobil {
+    constructor(warna, tahunProduksi) {
+        this.warna = warna;
+        this.tahunProduksi = tahunProduksi;
+    }
+
+    getWarna() {
+        return this.warna;
+    }
+
+    setWarna(warna) {
+        this.warna = warna;
+    }
+
+    getTahunProduksi() {
+        return this.tahunProduksi;
+    }
+
+    setTahunProduksi(tahunProduksi) {
+        this.tahunProduksi = tahunProduksi;
+    }
+}
+
+JAVA:
+public class Mobil {
+    String warna;
+    int tahunProduksi;
+}
+
+public class Mobil {
+    String warna;
+    int tahunProduksi;
+
+    // Constructor
+    public Mobil(String warna, int tahunProduksi) {
+        this.warna = warna;
+        this.tahunProduksi = tahunProduksi;
+    }
+
+    // Getter dan Setter
+    public String getWarna() {
+        return warna;
+    }
+
+    public void setWarna(String warna) {
+        this.warna = warna;
+    }
+
+    public int getTahunProduksi() {
+        return tahunProduksi;
+    }
+
+    public void setTahunProduksi(int tahunProduksi) {
+        this.tahunProduksi = tahunProduksi;
+    }
+}
