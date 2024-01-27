@@ -13,11 +13,11 @@
         $hari = $_POST['hari'];
         $jam_mulai = $_POST['jam_mulai'];
         $jam_selesai = $_POST['jam_selesai'];
-        $statues = $_POST['statues'];
+        $aktif = $_POST['aktif'];
     
         // If the new status is 'Active', set all other statuses to 'Inactive'
-        if ($statues == 1) {
-            $stmt = $mysqli->prepare("UPDATE jadwal_periksa SET statues=0 WHERE id_dokter=?");
+        if ($aktif == "Y") {
+            $stmt = $mysqli->prepare("UPDATE jadwal_periksa SET aktif='T' WHERE id_dokter=?");
             $stmt->bind_param("i", $id_dokter);
             $stmt->execute();
             $stmt->close();
@@ -25,8 +25,8 @@
     
         if (isset($_POST['id'])) {
             $id = $_POST['id'];
-            $stmt = $mysqli->prepare("UPDATE jadwal_periksa SET id_dokter=?, hari=?, jam_mulai=?, jam_selesai=?, statues=? WHERE id=?");
-            $stmt->bind_param("issssi", $id_dokter, $hari, $jam_mulai, $jam_selesai, $statues, $id);
+            $stmt = $mysqli->prepare("UPDATE jadwal_periksa SET id_dokter=?, hari=?, jam_mulai=?, jam_selesai=?, aktif=? WHERE id=?");
+            $stmt->bind_param("issssi", $id_dokter, $hari, $jam_mulai, $jam_selesai, $aktif, $id);
     
             if ($stmt->execute()) {
                 echo "
@@ -41,8 +41,8 @@
     
             $stmt->close();
         } else {
-            $stmt = $mysqli->prepare("INSERT INTO jadwal_periksa (id_dokter, hari, jam_mulai, jam_selesai, statues) VALUES (?, ?, ?, ?, ?)");
-            $stmt->bind_param("isssi", $id_dokter, $hari, $jam_mulai, $jam_selesai, $statues);
+            $stmt = $mysqli->prepare("INSERT INTO jadwal_periksa (id_dokter, hari, jam_mulai, jam_selesai, aktif) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("isssi", $id_dokter, $hari, $jam_mulai, $jam_selesai, $aktif);
     
             if ($stmt->execute()) {
                 echo "
@@ -122,7 +122,7 @@
                     $hari = '';
                     $jam_mulai = '';
                     $jam_selesai = '';
-                    $statues = '';
+                    $aktif = '';
                     if (isset($_GET['id'])) {
                         $get = mysqli_query($mysqli, "SELECT * FROM jadwal_periksa 
                                 WHERE id='" . $_GET['id'] . "'");
@@ -131,7 +131,7 @@
                             $hari = $row['hari'];
                             $jam_mulai = $row['jam_mulai'];
                             $jam_selesai = $row['jam_selesai'];
-                            $statues = $row['statues'];
+                            $aktif = $row['aktif'];
                         }
                     ?>
                         <input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
@@ -174,13 +174,13 @@
                         <input type="time" name="jam_selesai" class="form-control" required value="<?php echo $jam_selesai ?>">
                     </div>
                     <div class="dropdown mb-3 w-25">
-                    <label for="statues">Status <span class="text-danger">*</span></label>
-                        <select class="form-select" name="statues" aria-label="statues">
+                    <label for="aktif">Status <span class="text-danger">*</span></label>
+                        <select class="form-select" name="aktif" aria-label="aktif">
                             <option value="" selected>Pilih Status...</option>
                             <?php
-                                $statuses = ['1' => 'Active', '0' => 'Inactive'];
+                                $statuses = ['Y' => 'Active', 'T' => 'Inactive'];
                                 foreach ($statuses as $status => $statusName) {
-                                    $selected = ($status == $statues) ? 'selected' : '';
+                                    $selected = ($status == $aktif) ? 'selected' : '';
                                     echo "<option value='$status' $selected>$statusName</option>";
                                 }
                             ?>
@@ -207,7 +207,7 @@
                     </thead>
                     <tbody>
                         <?php
-                            $result = mysqli_query($mysqli, "SELECT dokter.nama, jadwal_periksa.id, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, jadwal_periksa.statues FROM dokter JOIN jadwal_periksa ON dokter.id = jadwal_periksa.id_dokter");
+                            $result = mysqli_query($mysqli, "SELECT dokter.nama, jadwal_periksa.id, jadwal_periksa.hari, jadwal_periksa.jam_mulai, jadwal_periksa.jam_selesai, jadwal_periksa.aktif FROM dokter JOIN jadwal_periksa ON dokter.id = jadwal_periksa.id_dokter");
                             $no = 1;
                             while ($data = mysqli_fetch_array($result)) :
                             ?>
@@ -219,7 +219,7 @@
                                     <td><?php echo $data['jam_selesai'] ?> WIB</td>
                                     <td>
                                       <?php 
-                                        echo ($data['statues'] == 1) 
+                                        echo ($data['aktif'] == "Y") 
                                           ? '<p class="bg-success text-white border rounded p-1 mb-0">Active</p>' 
                                           : '<p class="bg-danger text-white border rounded p-1 mb-0">Inactive</p>'; 
                                       ?>
